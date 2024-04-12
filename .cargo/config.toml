@@ -1,5 +1,6 @@
 [target.'cfg(all(target_arch = "{{ arch }}", target_os = "none"))']
-runner = "probe-rs run --chip {{ probe_chip }}"
+#runner = "probe-rs run --chip RP2040"
+runner = "elf2uf2-rs -ds target/thumbv6m-none-eabi/debug/led_game"
 
 [build]
 target = "{{ rust_target }}"
