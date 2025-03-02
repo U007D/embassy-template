@@ -23,7 +23,6 @@ embedded-storage = "0.3.1"
 
 cortex-m-rt = "0.7.3"
 
-
 {% if chip contains "nrf52" -%}
 cortex-m = { version = "0.7.6", features = ["critical-section-single-core"] }
 embassy-nrf = { version = "0.3", features = ["defmt", "{{ chip }}", "time-driver-rtc1", "gpiote", "unstable-pac", "time"] }
@@ -53,6 +52,17 @@ embassy-time = { version = "0.4", features = ["defmt", "defmt-timestamp-uptime"]
 {% if chip contains "rp2040" -%}
 cortex-m = { version = "0.7.6" }
 embassy-rp = { version = "0.3", features = ["defmt", "unstable-pac", "time-driver", "critical-section-impl", "rp2040"] }
+{% endif -%}
+
+{% if chip == "rp2350b" or chip == "rp2354b" -%}
+cortex-m = { version = "0.7.6" }
+embassy-rp = { version = "0.3", features = ["defmt", "unstable-pac", "time-driver", "critical-section-impl", "rp235xb"] }
+{% endif -%}
+
+# Accept any remaining "rp235x" variations as package variant "A".  Must *follow* "rp235xb" check.
+{% if chip contains "rp235" -%}
+cortex-m = { version = "0.7.6" }
+embassy-rp = { version = "0.3", features = ["defmt", "unstable-pac", "time-driver", "critical-section-impl", "rp235xa"] }
 {% endif -%}
 
 {% if chip contains "stm32" -%}
